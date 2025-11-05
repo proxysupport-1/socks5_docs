@@ -2,7 +2,7 @@
 
 #### 排查代理是否成功
 
-请访问<https://ipapi.co/>  查看是否有显示您的代理IP出来，如果无法显示则可能是您的代理失败了，代理失败请点击一下教程去排查：[👉手机戳此查看步骤](https://proxy-docs.gitbook.io/faq/shi-yong-wen-ti/wei-shen-me-lian-jie-bu-cheng-gong-shou-ji-yong-hu) ， [👉电脑戳此查看步骤](https://proxy-docs.gitbook.io/faq/shi-yong-wen-ti/wei-shen-me-lian-jie-bu-cheng-gong-dian-nao-yong-hu)
+请访问<https://ipapi.co/>  查看是否有显示您的代理IP出来，如果无法显示则可能是您的代理失败了，代理失败请点击一下教程去排查：[👉手机戳此查看步骤](/docs/shoujiwufalianjie) ， [👉电脑戳此查看步骤](/docs/pcwufalianjie)
 
 #### 假设您使用的是纯IPv6代理
 
