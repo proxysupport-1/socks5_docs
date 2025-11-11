@@ -10,6 +10,7 @@
    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="./css/theme-simple-dark.css">
    <link rel="stylesheet" media="(prefers-color-scheme: light)" href="./css/theme-simple.css">
    <link rel="stylesheet" href="./css/darkmode.css">
+   <link rel="stylesheet" href="./css/breadcrumb.min.css">
 </head>
 <body>
   <div id="app"></div>
@@ -27,6 +28,7 @@
 		countable:true,
 		float: 'right',
 		margin: '10px',
+		position: 'bottom',
 		fontsize:'1em',
 		color:'rgb(90,90,90)',
 		language:'chinese',
@@ -54,6 +56,14 @@
 		placeholder: '输入关键词搜索',
 		noData: '😒 找不到结果',
 	  },
+	  breadcrumb: {
+        showHome: true,
+        homeText: '首页',
+        separator: ' &rsaquo; ',
+        casing: 'capitalize',
+        linkColor: 'var(--theme-color, #42b983)',
+        size: 'normal'
+	  },
     }
   </script>
   <!-- Docsify v4 -->
@@ -69,6 +79,7 @@
   <script src="./js/countable.min.js"></script>
   <script src="./js/docsify-pagination.min.js"></script>
   <script src="./js/docsify-share@0.1.3.js"></script>
+  <script src="./js/docsify-breadcrumb@latest.js"></script>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cd6ba8069972447781bec3dfcc8cc908"}'></script><!-- End Cloudflare Web Analytics -->
   <style>
 	:root {
