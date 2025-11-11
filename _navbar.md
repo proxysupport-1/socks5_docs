@@ -1,5 +1,5 @@
 * [🏠️首页](/)
-  *📖教程文章
+*📖教程文章
   * [如何选代理](/docs/buyproxy)
   * [代理无法购买](/docs/wufagoumai)
   * [电脑连接不成功](/docs/pcwufalianjie)
