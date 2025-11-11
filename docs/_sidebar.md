@@ -1,0 +1,10 @@
+* [🏠️首页](/)
+* **🛒购买建议**
+  * [如何选择合适的代理](/buyproxy)
+* **📖使用问题**
+  * [为什么无法购买？](/wufagoumai)
+  * [为什么连接不成功？（电脑用户）](/pcwufalianjie)
+  * [为什么连接不成功？（手机用户）](/shoujiwufalianjie)
+  * [为什么查询IP出来的定位不准确？](/dingweibuzhunque)
+  * [IP使用的时候网速慢怎么办？](/wangsuman)
+  * [为什么有些网站无法打开？](/wangyewufadakai)
