@@ -1,5 +1,6 @@
 input: .
 output: .retype
+locale: zh
 
 url: https://proxysupport-1.github.io/socks5_help/
 
