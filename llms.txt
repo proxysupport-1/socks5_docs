@@ -9,4 +9,7 @@
 - [为什么查询IP出来的定位不准确？](https://proxysupport-1.github.io/socks5_help/dingweibuzhunque.md): 因市面上有成千上万家IP查询网站，并不是每家的信息更新都是最及时最准确的，甚至有些网站已经停更多年仍然在搜索引擎有收录，IP查询请尽量以比较权威和信息更新较快的网站为准，推荐使用ipinfo.io、ip-api.com查询。 并且每个IP库在城市维度都有自己定位标准，所以不影响使用。
 - [为什么连接不成功？（手机用户）](https://proxysupport-1.github.io/socks5_help/shoujiwufalianjie.md): 常见解决方案：👉使用教程点此查看
 - [为什么连接不成功？（电脑用户）](https://proxysupport-1.github.io/socks5_help/pcwufalianjie.md): 一、海外IP代理服务需要您具备全局的海外网络环境，如果您正在使用网络加速工具请开启全局模式（一般的网速加速工具都会有tun模式，或者虚拟网卡设置，开启即可变成全局）并尝试切换网络节点，如有不懂之处可以联系您所使用的网络加速工具提供商协助处理（👉可以点此查看网络检测教程）
-- [如何选择合适的代理](https://proxysupport-1.github.io/socks5_help/buyproxy.md): 一般养号我们会更加推荐静态代理
+
+## 🛒购买建议
+
+- [如何选择合适的代理](https://proxysupport-1.github.io/socks5_help/%E8%B4%AD%E4%B9%B0%E5%BB%BA%E8%AE%AE/buyproxy.md): 一般养号我们会更加推荐静态代理
