@@ -1,5 +1,5 @@
-﻿# Welcome
+﻿# Index
 
-> ✅ Your website is working.
+> 测试
 
-- [Welcome](https://docs.example.com/): Welcome
+- [Index](https://docs.example.com/index.md): Index
