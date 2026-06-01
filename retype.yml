@@ -1,0 +1,19 @@
+input: .
+output: .retype
+
+url: https://proxysupport-1.github.io/socks5_help/
+
+start:
+  # Uncomment the next line to try Retype Pro features
+  # pro: true
+
+branding:
+  title: ProxyHelp
+  label: Docs
+
+links:
+- text: 首页
+  link: https://proxysupport-1.github.io/socks5_help/
+
+footer:
+  copyright: "&copy; Copyright {{ year }}. All rights reserved."
