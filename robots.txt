@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://docs.example.com/sitemap.xml
+Sitemap: https://proxysupport-1.github.io/socks5_help/sitemap.xml

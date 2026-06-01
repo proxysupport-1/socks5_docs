@@ -2,4 +2,4 @@
 
 > 测试
 
-- [Index](https://docs.example.com/index.md): Index
+- [Index](https://proxysupport-1.github.io/socks5_help/index.md): Index
