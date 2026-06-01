@@ -8,4 +8,4 @@
 
 可以打开[<kbd>https://ip111.cn/</kbd>](https://ip111.cn/) 查看三个查询结果是否处于海外
 
-![image-20251105142152562](./assets/imgs/image-20251105142152562.png)
+![image-20251105142152562](../assets/imgs/image-20251105142152562.png)
