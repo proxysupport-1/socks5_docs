@@ -5,10 +5,10 @@
 - [👋欢迎](https://proxysupport-1.github.io/socks5_help/index.md): 👋欢迎
 - [IP使用的时候网速慢怎么办？](https://proxysupport-1.github.io/socks5_help/wangsuman.md): 通常IP带宽范围是2-10mbps之间（数据中心最高5mbps，静态住宅最高10mbps），您可以自行用了代理的浏览器去访问fast.com测试网速，如果是在2到10mbps这个范围内是正常的，如果网速慢可以减少窗口的打开，或切换网络加速工具的节点并排查海外网络速度，一般本地使用香港，新加坡，马来西亚等地区的节
 - [为什么无法购买？](https://proxysupport-1.github.io/socks5_help/wufagoumai.md): 海外IP代理服务需要您具备全局的海外网络环境，如果您正在使用网络加速工具请开启全局模式并尝试切换网络节点，如有不懂之处可以联系您所使用的网络加速工具提供商协助处理
-- [为什么有些网站无法打开？](https://proxysupport-1.github.io/socks5_help/wangyewufadakai.md): 请访问https://ipapi.co/ 查看是否有显示您的代理IP出来，如果无法显示则可能是您的代理失败了，代理失败请点击一下教程去排查：👉手机戳此查看步骤 ， 👉电脑戳此查看步骤
 
 ## 📖使用问题
 
+- [为什么有些网站无法打开？](https://proxysupport-1.github.io/socks5_help/%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/wangyewufadakai.md): 请访问https://ipapi.co/ 查看是否有显示您的代理IP出来，如果无法显示则可能是您的代理失败了，代理失败请点击一下教程去排查：👉手机戳此查看步骤 ， 👉电脑戳此查看步骤
 - [为什么查询IP出来的定位不准确？](https://proxysupport-1.github.io/socks5_help/%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/dingweibuzhunque.md): 因市面上有成千上万家IP查询网站，并不是每家的信息更新都是最及时最准确的，甚至有些网站已经停更多年仍然在搜索引擎有收录，IP查询请尽量以比较权威和信息更新较快的网站为准，推荐使用ipinfo.io、ip-api.com查询。 并且每个IP库在城市维度都有自己定位标准，所以不影响使用。
 - [为什么连接不成功？（手机用户）](https://proxysupport-1.github.io/socks5_help/%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/shoujiwufalianjie.md): 常见解决方案：👉使用教程点此查看
 - [为什么连接不成功？（电脑用户）](https://proxysupport-1.github.io/socks5_help/%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/pcwufalianjie.md): 一、海外IP代理服务需要您具备全局的海外网络环境，如果您正在使用网络加速工具请开启全局模式（一般的网速加速工具都会有tun模式，或者虚拟网卡设置，开启即可变成全局）并尝试切换网络节点，如有不懂之处可以联系您所使用的网络加速工具提供商协助处理（👉可以点此查看网络检测教程）
