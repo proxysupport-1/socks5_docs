@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="turbo-root" content="/socks5_docs">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="4.6.0.833685966630">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="4.6.0.833687151850">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 4.6.0">
@@ -38,20 +38,20 @@
 
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
-    <link href="resources/css/retype.css?v=4.6.0.833685966630" rel="stylesheet">
+    <link href="resources/css/retype.css?v=4.6.0.833687151850" rel="stylesheet">
 
-    <script data-cfasync="false" src="resources/js/config.js?v=4.6.0.833685966630" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="resources/js/config.js?v=4.6.0.833687151850" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="resources/js/retype.js?v=4.6.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="resources/js/lunr.js?v=4.6.0.833685966630" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="resources/js/lunr.js?v=4.6.0.833687151850" data-turbo-eval="false" defer></script>
 
     <style>
       .rt-img-zoomable {
         cursor: zoom-in;
-        transition: transform .25s ease, filter .25s ease;
       }
 
-      .rt-img-zoomable:hover {
-        filter: brightness(.96);
+      html.rt-lightbox-open,
+      html.rt-lightbox-open body {
+        overflow: hidden !important;
       }
 
       .rt-lightbox {
@@ -136,8 +136,24 @@
         transform: scale(1.06);
       }
 
+      @media (max-width: 768px) {
+        .rt-lightbox {
+          padding: 18px;
+        }
+
+        .rt-lightbox img {
+          max-width: 96vw;
+          max-height: 88vh;
+          border-radius: 12px;
+        }
+
+        .rt-lightbox-close {
+          top: 12px;
+          right: 12px;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
-        .rt-img-zoomable,
         .rt-lightbox,
         .rt-lightbox img,
         .rt-lightbox-close {
@@ -147,71 +163,158 @@
     </style>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const box = document.createElement('div');
-        box.className = 'rt-lightbox';
-        box.innerHTML = `
-          <button class="rt-lightbox-close" aria-label="关闭">×</button>
-          <img alt="">
-        `;
-        document.body.appendChild(box);
+    (function () {
+      if (window.__RetypeImageLightboxReady__) return;
+      window.__RetypeImageLightboxReady__ = true;
 
-        const boxImg = box.querySelector('img');
-        const closeBtn = box.querySelector('.rt-lightbox-close');
+      const IMAGE_SELECTOR = 'main img, article img, .content img, .page img, .doc img';
 
-        function openLightbox(img) {
-          boxImg.src = img.currentSrc || img.src;
-          boxImg.alt = img.alt || '';
+      let lightbox = null;
+      let lightboxImg = null;
+      let closeTimer = null;
+      let observer = null;
+      let markTimer = null;
 
-          requestAnimationFrame(function () {
-            box.classList.add('active');
+      function isSvg(src) {
+        return /\.svg($|\?)/i.test(src || '');
+      }
+
+      function isZoomableImage(img) {
+        if (!img || !img.matches || !img.matches(IMAGE_SELECTOR)) return false;
+        if (img.closest('.rt-lightbox')) return false;
+        if (img.classList.contains('no-zoom')) return false;
+
+        const src = img.currentSrc || img.src || img.getAttribute('src') || '';
+        if (!src || isSvg(src)) return false;
+
+        return true;
+      }
+
+      function ensureLightbox() {
+        if (!document.body) return null;
+
+        lightbox = document.querySelector('.rt-lightbox');
+
+        if (!lightbox) {
+          lightbox = document.createElement('div');
+          lightbox.className = 'rt-lightbox';
+          lightbox.innerHTML = `
+            <button class="rt-lightbox-close" type="button" aria-label="关闭">×</button>
+            <img alt="">
+          `;
+          document.body.appendChild(lightbox);
+        }
+
+        lightboxImg = lightbox.querySelector('img');
+        const closeBtn = lightbox.querySelector('.rt-lightbox-close');
+
+        if (!lightbox.dataset.bound) {
+          closeBtn.addEventListener('click', closeLightbox);
+
+          lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox || e.target === lightboxImg) {
+              closeLightbox();
+            }
           });
 
-          document.body.style.overflow = 'hidden';
+          lightbox.dataset.bound = '1';
         }
 
-        function closeLightbox() {
-          box.classList.remove('active');
+        return lightbox;
+      }
 
-          setTimeout(function () {
-            if (!box.classList.contains('active')) {
-              boxImg.src = '';
-            }
-          }, 300);
+      function openLightbox(img) {
+        ensureLightbox();
+        if (!lightbox || !lightboxImg) return;
 
-          document.body.style.overflow = '';
-        }
+        clearTimeout(closeTimer);
 
-        document.addEventListener('click', function (e) {
-          const img = e.target.closest('main img, article img, .content img');
-          if (!img) return;
+        const src = img.currentSrc || img.src || img.getAttribute('src');
 
-          if (img.closest('a')) return;
-          if ((img.src || '').includes('.svg')) return;
-          if (img.classList.contains('no-zoom')) return;
+        lightboxImg.src = src;
+        lightboxImg.alt = img.alt || '';
 
-          e.preventDefault();
-          openLightbox(img);
+        lightbox.classList.remove('active');
+
+        requestAnimationFrame(function () {
+          lightbox.classList.add('active');
+          document.documentElement.classList.add('rt-lightbox-open');
         });
+      }
 
-        closeBtn.addEventListener('click', closeLightbox);
+      function closeLightbox() {
+        if (!lightbox) return;
 
-        box.addEventListener('click', function (e) {
-          if (e.target === box || e.target === boxImg) {
-            closeLightbox();
+        lightbox.classList.remove('active');
+        document.documentElement.classList.remove('rt-lightbox-open');
+
+        clearTimeout(closeTimer);
+
+        closeTimer = setTimeout(function () {
+          if (lightbox && !lightbox.classList.contains('active') && lightboxImg) {
+            lightboxImg.removeAttribute('src');
           }
-        });
+        }, 320);
+      }
 
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape') closeLightbox();
-        });
-
-        document.querySelectorAll('main img, article img, .content img').forEach(function (img) {
-          if (!img.closest('a') && !(img.src || '').includes('.svg')) {
+      function markImages() {
+        document.querySelectorAll(IMAGE_SELECTOR).forEach(function (img) {
+          if (isZoomableImage(img)) {
             img.classList.add('rt-img-zoomable');
+          } else {
+            img.classList.remove('rt-img-zoomable');
           }
         });
+      }
+
+      function scheduleMarkImages() {
+        clearTimeout(markTimer);
+        markTimer = setTimeout(markImages, 80);
+      }
+
+      function initObserver() {
+        if (observer) return;
+
+        observer = new MutationObserver(function () {
+          scheduleMarkImages();
+          ensureLightbox();
+        });
+
+        observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true
+        });
+      }
+
+      document.addEventListener('click', function (e) {
+        const img = e.target.closest ? e.target.closest(IMAGE_SELECTOR) : null;
+
+        if (!isZoomableImage(img)) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        openLightbox(img);
+      }, true);
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        }
       });
+
+      function boot() {
+        ensureLightbox();
+        markImages();
+        initObserver();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot, { once: true });
+      } else {
+        boot();
+      }
+    })();
     </script>
 
 </head>
