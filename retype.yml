@@ -2,7 +2,7 @@ input: .
 output: .retype
 locale: zh
 
-url: https://proxysupport-1.github.io/socks5_help/
+url: https://proxysupport-1.github.io/socks5_docs/
 
 start:
   # Uncomment the next line to try Retype Pro features
@@ -14,7 +14,7 @@ branding:
 
 links:
 - text: :icon-home:首页
-  link: https://proxysupport-1.github.io/socks5_help/
+  link: https://proxysupport-1.github.io/socks5_docs/
 
 footer:
   copyright: "&copy; Copyright {{ year }}. All rights reserved."
