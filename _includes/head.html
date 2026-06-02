@@ -1,20 +1,6 @@
 <style>
-  html {
-    scrollbar-gutter: stable;
-  }
-
   .rt-img-zoomable {
     cursor: zoom-in;
-  }
-
-  html.rt-lightbox-open,
-  html.rt-lightbox-open body {
-    overflow: hidden !important;
-    overscroll-behavior: none;
-  }
-
-  body.rt-lightbox-lock {
-    padding-right: var(--rt-scrollbar-gap, 0px) !important;
   }
 
   .rt-lightbox {
@@ -71,7 +57,7 @@
   .rt-lightbox-close {
     position: fixed;
     top: 18px;
-    right: calc(22px + var(--rt-scrollbar-gap, 0px));
+    right: 22px;
     width: 42px;
     height: 42px;
     border: 0;
@@ -180,32 +166,22 @@
         }
       });
 
+      lightbox.addEventListener('wheel', function (e) {
+        if (lightbox.classList.contains('active')) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      lightbox.addEventListener('touchmove', function (e) {
+        if (lightbox.classList.contains('active')) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
       lightbox.dataset.bound = '1';
     }
 
     return lightbox;
-  }
-
-  function getScrollbarGap() {
-    return Math.max(0, window.innerWidth - document.documentElement.clientWidth);
-  }
-
-  function lockPageScroll() {
-    const scrollbarGap = getScrollbarGap();
-
-    document.documentElement.style.setProperty(
-      '--rt-scrollbar-gap',
-      scrollbarGap > 0 ? scrollbarGap + 'px' : '0px'
-    );
-
-    document.documentElement.classList.add('rt-lightbox-open');
-    document.body.classList.add('rt-lightbox-lock');
-  }
-
-  function unlockPageScroll() {
-    document.documentElement.classList.remove('rt-lightbox-open');
-    document.body.classList.remove('rt-lightbox-lock');
-    document.documentElement.style.removeProperty('--rt-scrollbar-gap');
   }
 
   function openLightbox(img) {
@@ -222,7 +198,6 @@
     lightbox.classList.remove('active');
 
     requestAnimationFrame(function () {
-      lockPageScroll();
       lightbox.classList.add('active');
     });
   }
@@ -231,7 +206,6 @@
     if (!lightbox) return;
 
     lightbox.classList.remove('active');
-    unlockPageScroll();
 
     clearTimeout(closeTimer);
 
@@ -286,17 +260,6 @@
     if (e.key === 'Escape') {
       closeLightbox();
     }
-  });
-
-  window.addEventListener('resize', function () {
-    if (!document.documentElement.classList.contains('rt-lightbox-open')) return;
-
-    const scrollbarGap = getScrollbarGap();
-
-    document.documentElement.style.setProperty(
-      '--rt-scrollbar-gap',
-      scrollbarGap > 0 ? scrollbarGap + 'px' : '0px'
-    );
   });
 
   function boot() {
