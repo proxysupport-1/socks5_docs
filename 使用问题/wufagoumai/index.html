@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="turbo-root" content="/socks5_docs">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="4.6.0.833685444002">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="4.6.0.833685966630">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 4.6.0">
@@ -44,39 +44,71 @@
 
     <script data-cfasync="false">(function(){var cl=document.documentElement.classList,ls=localStorage.getItem("retype_scheme"),hd=cl.contains("dark"),hl=cl.contains("light"),wm=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches;if(ls==="dark"||(!ls&&wm&&!hd&&!hl)){cl.remove("light");cl.add("dark")}else if(ls==="light"||(!ls&&!wm&&!hd&&!hl)){cl.remove("dark");cl.add("light")}})();</script>
 
-    <link href="../../resources/css/retype.css?v=4.6.0.833685444002" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=4.6.0.833685966630" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=4.6.0.833685444002" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=4.6.0.833685966630" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=4.6.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=4.6.0.833685444002" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=4.6.0.833685966630" data-turbo-eval="false" defer></script>
 
     <style>
       .rt-img-zoomable {
         cursor: zoom-in;
+        transition: transform .25s ease, filter .25s ease;
+      }
+
+      .rt-img-zoomable:hover {
+        filter: brightness(.96);
       }
 
       .rt-lightbox {
         position: fixed;
         inset: 0;
         z-index: 99999;
-        display: none;
+        display: flex;
         align-items: center;
         justify-content: center;
         padding: 32px;
-        background: rgba(0, 0, 0, .82);
-        backdrop-filter: blur(8px);
+        background: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity .28s ease,
+          background .28s ease,
+          backdrop-filter .28s ease,
+          visibility 0s linear .28s;
       }
 
       .rt-lightbox.active {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        background: rgba(0, 0, 0, .82);
+        backdrop-filter: blur(10px);
+        transition:
+          opacity .28s ease,
+          background .28s ease,
+          backdrop-filter .28s ease,
+          visibility 0s;
       }
 
       .rt-lightbox img {
         max-width: min(96vw, 1400px);
         max-height: 92vh;
-        border-radius: 14px;
-        box-shadow: 0 24px 80px rgba(0, 0, 0, .5);
+        border-radius: 16px;
+        box-shadow: 0 26px 90px rgba(0, 0, 0, .55);
         cursor: zoom-out;
+        opacity: 0;
+        transform: scale(.88) translateY(18px);
+        transition:
+          opacity .32s cubic-bezier(.2, .8, .2, 1),
+          transform .32s cubic-bezier(.2, .8, .2, 1);
+      }
+
+      .rt-lightbox.active img {
+        opacity: 1;
+        transform: scale(1) translateY(0);
       }
 
       .rt-lightbox-close {
@@ -92,10 +124,31 @@
         font-size: 28px;
         line-height: 42px;
         cursor: pointer;
+        opacity: 0;
+        transform: scale(.86) rotate(-8deg);
+        transition:
+          opacity .25s ease .08s,
+          transform .25s ease .08s,
+          background .2s ease;
+      }
+
+      .rt-lightbox.active .rt-lightbox-close {
+        opacity: 1;
+        transform: scale(1) rotate(0);
       }
 
       .rt-lightbox-close:hover {
         background: rgba(255,255,255,.24);
+        transform: scale(1.06);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .rt-img-zoomable,
+        .rt-lightbox,
+        .rt-lightbox img,
+        .rt-lightbox-close {
+          transition: none !important;
+        }
       }
     </style>
 
@@ -115,13 +168,23 @@
         function openLightbox(img) {
           boxImg.src = img.currentSrc || img.src;
           boxImg.alt = img.alt || '';
-          box.classList.add('active');
+
+          requestAnimationFrame(function () {
+            box.classList.add('active');
+          });
+
           document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
           box.classList.remove('active');
-          boxImg.src = '';
+
+          setTimeout(function () {
+            if (!box.classList.contains('active')) {
+              boxImg.src = '';
+            }
+          }, 300);
+
           document.body.style.overflow = '';
         }
 
@@ -129,7 +192,6 @@
           const img = e.target.closest('main img, article img, .content img');
           if (!img) return;
 
-          // 排除已经被链接包住的图片、SVG、小图标，避免误伤
           if (img.closest('a')) return;
           if ((img.src || '').includes('.svg')) return;
           if (img.classList.contains('no-zoom')) return;
